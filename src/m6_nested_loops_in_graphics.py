@@ -84,13 +84,21 @@ def draw_L(window, circle, r, c):
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
     y = circle.center.y
-    r = circle.radius
+    d = circle.radius
     for j in range(r):
-        y += r*2
+        y += d*2
         x = circle.center.x
         for k in range(3):
-            x += r*2
-            l = rg.Circle(rg.Point(x, y), r)
+            x += d*2
+            l = rg.Circle(rg.Point(x, y), d)
+            l.fill_color = circle.fill_color
+            l.attach_to(window)
+    for i in range(3):
+        y += d * 2
+        x = circle.center.x
+        for k in range(c + 3):
+            x += d * 2
+            l = rg.Circle(rg.Point(x, y), d)
             l.fill_color = circle.fill_color
             l.attach_to(window)
     window.render()
@@ -128,12 +136,29 @@ def draw_wall_on_right(rectangle, n, window):
       :type rectangle: rg.Rectangle
       :type n: int
       :type window: rg.RoseWindow
-    and n is a small, positive integer.
+    and n is a small, positive integer.y
+
     """
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    y = rectangle.get_upper_right_corner().y
+    y2 = rectangle.get_lower_left_corner().y
+
+    for j in range(n):
+        y += rectangle.get_height()
+        y2 += rectangle.get_height()
+        x = rectangle.get_upper_right_corner().x
+        x2 = rectangle.get_lower_left_corner().x
+        for k in range(j + 1):
+            x -= rectangle.get_width()
+            x -= rectangle.get_width()
+            p1 = rg.Point(x,y)
+            p2 = rg.Point(x2,y2)
+            rectangle1 = rg.Rectangle(p1, p2)
+            rectangle1.attach_to(window)
+    window.render()
 
 
 # ----------------------------------------------------------------------
